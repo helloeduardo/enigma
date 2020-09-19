@@ -88,4 +88,13 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.decrypt("keder ohulw", "02715", "040895")
   end
 
+  def test_it_can_crypt
+    cipher = Cipher.new
+    shifts = [3, 27, 73, 20]
+
+    expected = "keder ohulw"
+
+    assert_equal expected, cipher.crypt("hello world", shifts)
+  end
+
 end

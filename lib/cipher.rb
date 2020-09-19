@@ -29,17 +29,15 @@ class Cipher
 
   def encrypt(message, key, date)
     shifts = shifts(key, date).values
-
-    message.each_char.reduce("") do |new_message, char|
-      new_message << translate(char, shifts[0])
-      shifts.rotate!(1)
-      new_message
-    end
+    crypt(message, shifts)
   end
 
   def decrypt(message, key, date)
     shifts = shifts(key, date).values.map { |n| -n }
+    crypt(message, shifts)
+  end
 
+  def crypt(message, shifts)
     message.each_char.reduce("") do |new_message, char|
       new_message << translate(char, shifts[0])
       shifts.rotate!(1)
