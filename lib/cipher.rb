@@ -13,6 +13,14 @@ class Cipher
       d: key[3..4].to_i }
   end
 
+  def offsets(date)
+    offsets = (date.to_i**2).digits.first(4)
+    { a: offsets[3],
+      b: offsets[2],
+      c: offsets[1],
+      d: offsets[0] }
+  end
+
   #rotational cipher methods
   def translate(string, shift)
     dictionary = char_set.zip(char_set.rotate(shift)).to_h

@@ -46,4 +46,17 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.key_shifts("02715")
   end
 
+  def test_it_can_find_offsets
+    cipher = Cipher.new
+
+    expected = {
+      a: 1,
+      b: 0,
+      c: 2,
+      d: 5
+    }
+
+    assert_equal expected, cipher.offsets("040895")
+  end
+
 end
