@@ -33,4 +33,17 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.translate('Hello!', 1)
   end
 
+  def test_it_can_find_key_shifts
+    cipher = Cipher.new
+
+    expected = {
+      a: 02,
+      b: 27,
+      c: 71,
+      d: 15
+    }
+
+    assert_equal expected, cipher.key_shifts("02715")
+  end
+
 end
