@@ -9,7 +9,7 @@ class Enigma
       date: date }
   end
 
-  def decrypt(ciphertext, key, date)
+  def decrypt(ciphertext, key, date = default_date)
     { decryption: nil, #decrypted message method
       key: key,
       date: date }
