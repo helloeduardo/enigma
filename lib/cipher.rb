@@ -10,10 +10,14 @@ class Cipher
   #rotational cipher methods
   def translate(string, shift)
     dictionary = char_set.zip(char_set.rotate(shift)).to_h
-    string.downcase.chars.map do |char|
-      dictionary[char]
+
+    string.downcase.chars.map do |char| #could just be a char
+      if dictionary[char]
+        dictionary[char]
+      else
+        char
+      end
     end.join
   end
-
 
 end

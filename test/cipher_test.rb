@@ -25,7 +25,12 @@ class CipherTest < Minitest::Test
     cipher = Cipher.new
 
     expected = 'ifmmp'
+
     assert_equal expected, cipher.translate('Hello', 1)
+
+    expected = 'ifmmp!'
+
+    assert_equal expected, cipher.translate('Hello!', 1)
   end
 
 end
