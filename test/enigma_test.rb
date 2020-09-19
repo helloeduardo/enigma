@@ -92,4 +92,19 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, enigma.crack("vjqtbeaweqihssi", "291018")
   end
 
+  def test_it_can_crack_with_default_date
+    enigma = Enigma.new
+
+    expected = {
+      decryption: "hello world end",
+      date: "291018",
+      key: "08304"
+    }
+
+    Date.stubs(:today).returns(Date.new(2018, 10, 29))
+
+    assert_equal "291018", enigma.default_date
+    assert_equal expected, enigma.crack("vjqtbeaweqihssi")
+  end
+
 end

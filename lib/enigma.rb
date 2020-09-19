@@ -15,7 +15,7 @@ class Enigma
       date: date }
   end
 
-  def crack(ciphertext, date)
+  def crack(ciphertext, date = default_date)
     { decryption: nil, #crack message method
       date: date,
       key: nil } #crack message key method
