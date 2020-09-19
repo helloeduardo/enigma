@@ -33,7 +33,7 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.translate('Hello!', 1)
   end
 
-  def test_it_can_find_key_shifts
+  def test_it_can_find_keys
     cipher = Cipher.new
 
     expected = {
@@ -43,7 +43,7 @@ class CipherTest < Minitest::Test
       d: 15
     }
 
-    assert_equal expected, cipher.key_shifts("02715")
+    assert_equal expected, cipher.keys("02715")
   end
 
   def test_it_can_find_offsets
@@ -57,6 +57,19 @@ class CipherTest < Minitest::Test
     }
 
     assert_equal expected, cipher.offsets("040895")
+  end
+
+  def test_it_can_find_shifts
+    cipher = Cipher.new
+
+    expected = {
+      a: 3,
+      b: 27,
+      c: 73,
+      d: 20
+    }
+
+    assert_equal expected, cipher.shifts("02715", "040895")
   end
 
 end

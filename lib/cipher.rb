@@ -6,7 +6,7 @@ class Cipher
   end
 
   #finding shifts
-  def key_shifts(key)
+  def keys(key)
     { a: key[0..1].to_i,
       b: key[1..2].to_i,
       c: key[2..3].to_i,
@@ -19,6 +19,12 @@ class Cipher
       b: offsets[2],
       c: offsets[1],
       d: offsets[0] }
+  end
+
+  def shifts(key, date)
+    keys(key).merge(offsets(date)) do |shift, key, offset|
+      key + offset
+    end
   end
 
   #rotational cipher methods
