@@ -72,4 +72,12 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.shifts("02715", "040895")
   end
 
+  def test_it_can_encrypt_with_key_and_date
+    cipher = Cipher.new
+
+    expected = "keder ohulw"
+
+    assert_equal expected, cipher.encrypt("hello world", "02715", "040895")
+  end
+
 end
