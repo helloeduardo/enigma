@@ -37,6 +37,16 @@ class Cipher
     end
   end
 
+  def decrypt(message, key, date)
+    shifts = shifts(key, date).values.map { |n| -n }
+
+    message.each_char.reduce("") do |new_message, char|
+      new_message << translate(char, shifts[0])
+      shifts.rotate!(1)
+      new_message
+    end
+  end
+
   #rotational cipher methods
   def translate(string, shift)
     dictionary = char_set.zip(char_set.rotate(shift)).to_h
