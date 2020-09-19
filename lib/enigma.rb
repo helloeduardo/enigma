@@ -8,4 +8,10 @@ class Enigma
       key: key,
       date: date }
   end
+
+  def decrypt(ciphertext, key, date)
+    { decryption: nil, #decrypted message method
+      key: key,
+      date: date }
+  end
 end
