@@ -1,11 +1,7 @@
-class EnigmaCipher
-  attr_reader :char_set
+require './lib/rotational_cipher'
 
-  def initialize
-    @char_set = ("a".."z").to_a << " "
-  end
+class EnigmaCipher < RotationalCipher
 
-  #finding shifts
   def keys(key)
     { a: key[0..1].to_i,
       b: key[1..2].to_i,
@@ -44,18 +40,4 @@ class EnigmaCipher
       new_message
     end
   end
-
-  #rotational cipher methods
-  def translate(string, shift)
-    dictionary = char_set.zip(char_set.rotate(shift)).to_h
-
-    string.downcase.chars.map do |char| #could just be a char
-      if dictionary[char]
-        dictionary[char]
-      else
-        char
-      end
-    end.join
-  end
-
 end
