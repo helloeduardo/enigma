@@ -21,4 +21,11 @@ class CipherTest < Minitest::Test
     assert_equal expected, cipher.char_set
   end
 
+  def test_it_can_translate
+    cipher = Cipher.new
+
+    expected = 'ifmmp'
+    assert_equal expected, cipher.translate('Hello', 1)
+  end
+
 end
