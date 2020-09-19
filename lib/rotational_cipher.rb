@@ -8,7 +8,7 @@ class RotationalCipher
   def translate(string, shift)
     dictionary = char_set.zip(char_set.rotate(shift)).to_h
 
-    string.downcase.chars.map do |char| #could just be a char
+    string.downcase.chars.map do |char|
       if dictionary[char]
         dictionary[char]
       else
