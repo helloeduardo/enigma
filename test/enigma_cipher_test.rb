@@ -1,16 +1,16 @@
 require './test/test_helper'
-require './lib/cipher'
+require './lib/enigma_cipher'
 
-class CipherTest < Minitest::Test
+class EnigmaCipherTest < Minitest::Test
 
   def test_it_exists
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
-    assert_instance_of Cipher, cipher
+    assert_instance_of EnigmaCipher, cipher
   end
 
   def test_it_has_a_character_set
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = [
       "a", "b", "c", "d", "e", "f", "g", "h", "i",
@@ -22,7 +22,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_translate
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = 'ifmmp'
 
@@ -34,7 +34,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_find_keys
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = {
       a: 02,
@@ -47,7 +47,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_find_offsets
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = {
       a: 1,
@@ -60,7 +60,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_find_shifts
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = {
       a: 3,
@@ -73,7 +73,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_encrypt_with_key_and_date
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = "keder ohulw"
 
@@ -81,7 +81,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_decrypt_with_key_and_date
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
 
     expected = "hello world"
 
@@ -89,7 +89,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_crypt
-    cipher = Cipher.new
+    cipher = EnigmaCipher.new
     shifts = [3, 27, 73, 20]
 
     expected = "keder ohulw"

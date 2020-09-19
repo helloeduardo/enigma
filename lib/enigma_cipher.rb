@@ -1,4 +1,4 @@
-class Cipher
+class EnigmaCipher
   attr_reader :char_set
 
   def initialize
