@@ -1,9 +1,11 @@
-class EnigmaBombe
-  attr_reader :char_set, :known_ending
+require './lib/rotational_cipher'
+
+class EnigmaBombe < RotationalCipher
+  attr_reader :known_ending
 
   def initialize
-    @char_set = ("a".."z").to_a << " "
     @known_ending = " end"
+    super
   end
 
   def cracked_keys(message, date)
@@ -53,19 +55,6 @@ class EnigmaBombe
       shifts.rotate!
       new_message
     end
-  end
-
-  #rotational cipher knowledge
-  def translate(string, shift)
-    dictionary = char_set.zip(char_set.rotate(shift)).to_h
-
-    string.downcase.chars.map do |char|
-      if dictionary[char]
-        dictionary[char]
-      else
-        char
-      end
-    end.join
   end
 
 end
