@@ -9,11 +9,41 @@ class EnigmaBombe < RotationalCipher
   end
 
   def key(ciphertext, date)
-    possible_keys.find do |key|
+    key = possible_keys(ciphertext, date).find do |key|
       key[0][1] == key[1][0] &&
       key[1][1] == key[2][0] &&
       key[2][1] == key[3][0]
-    end.join
+    end
+    format_key(key)
+  end
+
+  def format_key(key)
+    key[0][0] + key[1][0] + key[2][0] + key[3]
+  end
+
+  def possible_keys(message, date)
+    shifts = possible_shifts(message, date)
+    shifts[:a].product(shifts[:b], shifts[:c], shifts[:d])
+  end
+
+  def possible_shifts(message, date)
+    cracked_keys(message, date).reduce({}) do |possibilities, (letter, shift)|
+      possibilities[letter] = shift_multiples(shift)
+      possibilities
+    end
+  end
+
+  def format_multiples(multiples)
+    multiples.map do |multiple|
+      multiple.to_s.rjust(2, "0")
+    end
+  end
+
+  def shift_multiples(shift)
+    multiples = (0..99).to_a.find_all do |number|
+      (number - shift) % char_set.size == 0
+    end
+    format_multiples(multiples)
   end
 
   def cracked_keys(message, date)

@@ -78,4 +78,31 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal "08304", @bombe.key("vjqtbeaweqihssi", "291018")
   end
 
+  def test_it_can_format_key
+    assert_equal "08304", @bombe.format_key(["08", "83", "30", "04"])
+  end
+
+  def test_it_can_have_possible_keys
+    assert_equal 256, @bombe.possible_keys("vjqtbeaweqihssi", "291018").count
+  end
+
+  def test_it_can_have_possible_shifts
+    expected = {
+      :a=>["08", "35", "62", "89"],
+      :b=>["02", "29", "56", "83"],
+      :c=>["03", "30", "57", "84"],
+      :d=>["04", "31", "58", "85"]
+    }
+
+    assert_equal expected, @bombe.possible_shifts("vjqtbeaweqihssi", "291018")
+  end
+
+  def test_it_can_find_shift_multiples
+    assert_equal ["08", "35", "62", "89"], @bombe.shift_multiples(8)
+  end
+
+  def test_it_can_format_multiples
+    assert_equal ["08", "35", "62", "89"], @bombe.format_multiples([8, 35, 62, 89])
+  end
+
 end
