@@ -24,6 +24,6 @@ class Enigma
   def crack(ciphertext, date = default_date)
     { decryption: bombe.decrypt(ciphertext),
       date: date,
-      key: nil } #crack message key method
+      key: bombe.key(ciphertext,date) }
   end
 end
