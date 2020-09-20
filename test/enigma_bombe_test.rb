@@ -25,10 +25,10 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal " end", @bombe.known_ending
   end
 
-  def test_it_can_untranslate
+  def test_it_can_decrypt
     expected = "hello world end"
 
-    assert_equal expected, @bombe.untranslate("vjqtbeaweqihssi")
+    assert_equal expected, @bombe.decrypt("vjqtbeaweqihssi")
   end
 
   def test_it_can_find_shift_sequence

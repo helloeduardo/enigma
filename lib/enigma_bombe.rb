@@ -28,14 +28,17 @@ class EnigmaBombe
     end
   end
 
-  def untranslate(ciphertext)
+  def decrypt(ciphertext)
     shifts = shifts(ciphertext).values
-    
-    #uncrypt text
-    ciphertext.each_char.reduce("") do |plaintext, char|
-      plaintext << translate(char, shifts.first)
+    crypt(ciphertext, shifts)
+  end
+
+  #vigienere crypt, extractable to module?
+  def crypt(message, shifts)
+    message.each_char.reduce("") do |new_message, char|
+      new_message << translate(char, shifts.first)
       shifts.rotate!
-      plaintext
+      new_message
     end
   end
 
