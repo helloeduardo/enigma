@@ -6,6 +6,12 @@ class EnigmaBombe
     @known_ending = " end"
   end
 
+  def cracked_keys(message, date)
+    shifts(message).merge(offsets(date)) do |letter, shift, offset|
+      shift - offset
+    end
+  end
+
   def offsets(date)
     offsets = (date.to_i**2).digits.first(4)
     { a: offsets[3],

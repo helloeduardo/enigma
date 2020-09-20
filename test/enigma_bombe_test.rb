@@ -42,15 +42,36 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.message_shifts("vjqtbeaweqihssi")
   end
 
+  def test_it_can_find_shifts
+    expected = {
+      a: 14,
+      b: 5,
+      c: 5,
+      d: -19
+    }
+    assert_equal expected, @bombe.shifts("vjqtbeaweqihssi")
+  end
+
   def test_it_can_find_offsets
     expected = {
-      a: 1,
-      b: 0,
+      a: 6,
+      b: 3,
       c: 2,
-      d: 5
+      d: 4
     }
 
-    assert_equal expected, @bombe.offsets("040895")
+    assert_equal expected, @bombe.offsets("291018")
+  end
+
+  def test_it_can_find_crack_keys
+    expected = {
+      a: 8,
+      b: 2,
+      c: 3,
+      d: -23
+    }
+
+    assert_equal expected, @bombe.cracked_keys("vjqtbeaweqihssi", "291018")
   end
 
 end
