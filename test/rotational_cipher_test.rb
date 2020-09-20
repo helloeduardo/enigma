@@ -21,15 +21,25 @@ class RotationalCipherTest < Minitest::Test
     assert_equal expected, cipher.char_set
   end
 
-  def test_it_can_translate
+  def test_it_can_ceasar_translate
     cipher = RotationalCipher.new
 
     expected = 'ifmmp'
 
-    assert_equal expected, cipher.translate('Hello', 1)
+    assert_equal expected, cipher.ceasar_translate('Hello', 1)
 
     expected = 'ifmmp!'
 
-    assert_equal expected, cipher.translate('Hello!', 1)
+    assert_equal expected, cipher.ceasar_translate('Hello!', 1)
   end
+
+  def test_it_can_vigenere_translate
+    cipher = RotationalCipher.new
+    shifts = [3, 27, 73, 20]
+
+    expected = "keder ohulw"
+
+    assert_equal expected, cipher.vigenere_translate("hello world", shifts)
+  end
+
 end
