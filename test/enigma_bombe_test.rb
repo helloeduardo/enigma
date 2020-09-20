@@ -74,4 +74,8 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.cracked_keys("vjqtbeaweqihssi", "291018")
   end
 
+  def test_it_can_find_key
+    assert_equal "08304", @bombe.key("vjqtbeaweqihssi", "291018")
+  end
+
 end

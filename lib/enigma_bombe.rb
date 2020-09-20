@@ -8,6 +8,14 @@ class EnigmaBombe < RotationalCipher
     super
   end
 
+  def key(ciphertext, date)
+    possible_keys.find do |key|
+      key[0][1] == key[1][0] &&
+      key[1][1] == key[2][0] &&
+      key[2][1] == key[3][0]
+    end.join
+  end
+
   def cracked_keys(message, date)
     shifts(message).merge(offsets(date)) do |letter, shift, offset|
       shift - offset
