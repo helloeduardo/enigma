@@ -2,10 +2,11 @@ require './lib/defaultable'
 
 class Enigma
   include Defaultable
-  attr_reader :cipher
+  attr_reader :cipher, :bombe
 
   def initialize
     @cipher = EnigmaCipher.new
+    @bombe = EnigmaBombe.new
   end
 
   def encrypt(message, key = default_key, date = default_date)
@@ -21,7 +22,7 @@ class Enigma
   end
 
   def crack(ciphertext, date = default_date)
-    { decryption: nil, #crack message method
+    { decryption: bombe.decrypt(ciphertext),
       date: date,
       key: nil } #crack message key method
   end

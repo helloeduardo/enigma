@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/enigma'
 require './lib/enigma_cipher'
+require './lib/enigma_bombe'
 
 class EnigmaTest < Minitest::Test
 

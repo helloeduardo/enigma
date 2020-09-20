@@ -20,25 +20,26 @@ class EnigmaBombe
       d: offsets[0] }
   end
 
+  def shifts(message)
+    shift_sequence(message).last(4).zip(message_shifts(message)).sort.to_h
+  end
+
   def shift_sequence(message)
     message.each_char.with_index.map do |char, index|
       char_set[index % 4].to_sym
     end
   end
 
-  def shifts(message)
-    shift_sequence(message).last(4).zip(message_shifts(message)).sort.to_h
-  end
-
   def message_shifts(ciphertext)
-    ciphertext_last_chars = ciphertext.chars.last(4)
+    last_chars = ciphertext.chars.last(4)
 
     known_ending.each_char.map do |char|
-      shift = char_set.index(char) - char_set.index(ciphertext_last_chars.first)
-      ciphertext_last_chars.rotate!
+      shift = char_set.index(char) - char_set.index(last_chars.first)
+      last_chars.rotate!
       -shift
     end
   end
+
 
   def decrypt(ciphertext)
     shifts = shifts(ciphertext).values.map { |n| -n }
