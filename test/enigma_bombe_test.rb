@@ -34,4 +34,13 @@ class EnigmaBombeTest < Minitest::Test
 
     assert_equal expected, bombe.untranslate("vjqtbeaweqihssi")
   end
+
+  def test_it_can_find_shift_sequence
+    bombe = EnigmaBombe.new
+
+    expected = [:a, :b, :c, :d, :a, :b, :c, :d, :a, :b, :c, :d, :a, :b, :c]
+
+    assert_equal expected, bombe.shift_sequence("vjqtbeaweqihssi")
+  end
+
 end

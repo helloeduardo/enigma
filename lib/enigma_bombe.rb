@@ -4,7 +4,15 @@ class EnigmaBombe
   def initialize
     @char_set = ("a".."z").to_a << " "
     @known_ending = " end"
+    @shifts = {}
   end
+
+  def shift_sequence(message)
+    message.each_char.with_index.map do |char, index|
+      char_set[index % 4].to_sym
+    end
+  end
+
 
   def untranslate(ciphertext)
     ciphertext_last_chars = ciphertext.chars.last(4)
