@@ -26,4 +26,12 @@ class EnigmaBombeTest < Minitest::Test
 
     assert_equal " end", bombe.known_ending
   end
+
+  def test_it_can_untranslate
+    bombe = EnigmaBombe.new
+
+    expected = "hello world end"
+
+    assert_equal expected, bombe.untranslate("vjqtbeaweqihssi")
+  end
 end
