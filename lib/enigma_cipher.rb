@@ -33,11 +33,4 @@ class EnigmaCipher < RotationalCipher
     crypt(message, shifts)
   end
 
-  def crypt(message, shifts)
-    message.each_char.reduce("") do |new_message, char|
-      new_message << translate(char, shifts.first)
-      shifts.rotate!
-      new_message
-    end
-  end
 end
