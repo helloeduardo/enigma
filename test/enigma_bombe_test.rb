@@ -38,7 +38,7 @@ class EnigmaBombeTest < Minitest::Test
   end
 
   def test_it_can_find_message_shifts
-    expected = [19, -14, -5, -5]
+    expected = [-19, 14, 5, 5]
     assert_equal expected, @bombe.message_shifts("vjqtbeaweqihssi")
   end
 

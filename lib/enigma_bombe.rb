@@ -20,16 +20,15 @@ class EnigmaBombe
   def message_shifts(ciphertext)
     ciphertext_last_chars = ciphertext.chars.last(4)
 
-    #finds mininum or closest shifts
     known_ending.each_char.map do |char|
       shift = char_set.index(char) - char_set.index(ciphertext_last_chars.first)
       ciphertext_last_chars.rotate!
-      shift
+      -shift
     end
   end
 
   def decrypt(ciphertext)
-    shifts = shifts(ciphertext).values
+    shifts = shifts(ciphertext).values.map { |n| -n }
     crypt(ciphertext, shifts)
   end
 
