@@ -42,4 +42,15 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.message_shifts("vjqtbeaweqihssi")
   end
 
+  def test_it_can_find_offsets
+    expected = {
+      a: 1,
+      b: 0,
+      c: 2,
+      d: 5
+    }
+
+    assert_equal expected, @bombe.offsets("040895")
+  end
+
 end
