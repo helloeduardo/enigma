@@ -1,6 +1,8 @@
 require './lib/rotational_cipher'
+require './lib/formatable'
 
 class EnigmaBombe < RotationalCipher
+  include Formatable
   attr_reader :known_ending
 
   def initialize
@@ -17,10 +19,6 @@ class EnigmaBombe < RotationalCipher
     format_key(key)
   end
 
-  def format_key(key)
-    key[0][0] + key[1][0] + key[2][0] + key[3]
-  end
-
   def possible_keys(message, date)
     shifts = possible_shifts(message, date)
     shifts[:a].product(shifts[:b], shifts[:c], shifts[:d])
@@ -30,12 +28,6 @@ class EnigmaBombe < RotationalCipher
     cracked_keys(message, date).reduce({}) do |possibilities, (letter, shift)|
       possibilities[letter] = shift_multiples(shift)
       possibilities
-    end
-  end
-
-  def format_multiples(multiples)
-    multiples.map do |multiple|
-      multiple.to_s.rjust(2, "0")
     end
   end
 
