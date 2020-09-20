@@ -21,18 +21,6 @@ class EnigmaCipherTest < Minitest::Test
     assert_equal expected, cipher.char_set
   end
 
-  def test_it_can_translate
-    cipher = EnigmaCipher.new
-
-    expected = 'ifmmp'
-
-    assert_equal expected, cipher.translate('Hello', 1)
-
-    expected = 'ifmmp!'
-
-    assert_equal expected, cipher.translate('Hello!', 1)
-  end
-
   def test_it_can_find_keys
     cipher = EnigmaCipher.new
 
@@ -94,7 +82,7 @@ class EnigmaCipherTest < Minitest::Test
 
     expected = "keder ohulw"
 
-    assert_equal expected, cipher.crypt("hello world", shifts)
+    assert_equal expected, cipher.vigenere_translate("hello world", shifts)
   end
 
 end

@@ -42,10 +42,9 @@ class EnigmaBombe < RotationalCipher
     end
   end
 
-
   def decrypt(ciphertext)
     shifts = shifts(ciphertext).values.map { |n| -n }
-    crypt(ciphertext, shifts)
+    vigenere_translate(ciphertext, shifts)
   end
 
 end

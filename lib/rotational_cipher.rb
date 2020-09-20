@@ -5,18 +5,18 @@ class RotationalCipher
     @char_set = ("a".."z").to_a << " "
   end
 
-  def crypt(message, shifts)
+  def vigenere_translate(message, shifts)
     message.each_char.reduce("") do |new_message, char|
-      new_message << translate(char, shifts.first)
+      new_message << ceasar_translate(char, shifts.first)
       shifts.rotate!
       new_message
     end
   end
 
-  def translate(string, shift)
+  def ceasar_translate(message, shift)
     dictionary = char_set.zip(char_set.rotate(shift)).to_h
 
-    string.downcase.chars.map do |char|
+    message.downcase.chars.map do |char|
       if dictionary[char]
         dictionary[char]
       else

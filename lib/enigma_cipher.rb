@@ -25,12 +25,12 @@ class EnigmaCipher < RotationalCipher
 
   def encrypt(message, key, date)
     shifts = shifts(key, date).values
-    crypt(message, shifts)
+    vigenere_translate(message, shifts)
   end
 
   def decrypt(message, key, date)
     shifts = shifts(key, date).values.map { |n| -n }
-    crypt(message, shifts)
+    vigenere_translate(message, shifts)
   end
 
 end
