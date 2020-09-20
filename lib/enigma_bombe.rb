@@ -13,21 +13,24 @@ class EnigmaBombe
     end
   end
 
+  def shifts(message)
+    shift_sequence(message).last(4).zip(message_shifts(message)).sort.to_h
+  end
 
-  def untranslate(ciphertext)
+  def message_shifts(ciphertext)
     ciphertext_last_chars = ciphertext.chars.last(4)
 
     #finds mininum or closest shifts
-    shifts = known_ending.each_char.map do |char|
+    known_ending.each_char.map do |char|
       shift = char_set.index(char) - char_set.index(ciphertext_last_chars.first)
       ciphertext_last_chars.rotate!
       shift
     end
+  end
 
-    #Align shifts correctly, needs to be dynamic,
-    #hardcoded now
-    shifts.rotate!
-
+  def untranslate(ciphertext)
+    shifts = shifts(ciphertext).values
+    
     #uncrypt text
     ciphertext.each_char.reduce("") do |plaintext, char|
       plaintext << translate(char, shifts.first)
