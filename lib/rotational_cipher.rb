@@ -2,11 +2,11 @@ class RotationalCipher
   attr_reader :char_set
 
   def initialize
-    @char_set = ("a".."z").to_a << " "
+    @char_set = ('a'..'z').to_a << ' '
   end
 
   def vigenere_translate(message, shifts)
-    message.each_char.reduce("") do |new_message, char|
+    message.each_char.reduce('') do |new_message, char|
       new_message << ceasar_translate(char, shifts.first)
       shifts.rotate!
       new_message
