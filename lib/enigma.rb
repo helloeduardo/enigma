@@ -1,5 +1,6 @@
 require './lib/defaultable'
 
+# This class manages encrypt/decrypt/crack flow implementation
 class Enigma
   include Defaultable
   attr_reader :cipher, :bombe
@@ -22,8 +23,8 @@ class Enigma
   end
 
   def crack(ciphertext, date = default_date)
-    { decryption: bombe.decrypt(ciphertext),
+    { decryption: bombe.crack(ciphertext),
       date: date,
-      key: bombe.key(ciphertext,date) }
+      key: bombe.key(ciphertext, date) }
   end
 end

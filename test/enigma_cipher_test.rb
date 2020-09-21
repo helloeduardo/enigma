@@ -2,54 +2,36 @@ require './test/test_helper'
 require './lib/enigma_cipher'
 
 class EnigmaCipherTest < Minitest::Test
+  def setup
+    @cipher = EnigmaCipher.new
+    @cipher.set_cipher('hello world', '02715', '040895')
+  end
 
   def test_it_exists
-    cipher = EnigmaCipher.new
-
-    assert_instance_of EnigmaCipher, cipher
+    assert_instance_of EnigmaCipher, @cipher
   end
 
-  def test_it_has_a_character_set
-    cipher = EnigmaCipher.new
-
-    expected = [
-      "a", "b", "c", "d", "e", "f", "g", "h", "i",
-      "j", "k", "l", "m", "n", "o", "p", "q", "r",
-      "s", "t", "u", "v", "w", "x", "y", "z", " "
-    ]
-
-    assert_equal expected, cipher.char_set
+  def test_it_can_set_cipher
+    assert_equal 'hello world', @cipher.message
+    assert_equal '02715', @cipher.key
+    assert_equal '040895', @cipher.date
   end
 
-  def test_it_can_find_keys
-    cipher = EnigmaCipher.new
+  def test_it_can_encrypt_with_key_and_date
+    expected = 'keder ohulw'
 
-    expected = {
-      a: 02,
-      b: 27,
-      c: 71,
-      d: 15
-    }
-
-    assert_equal expected, cipher.keys("02715")
+    assert_equal expected, @cipher.encrypt('hello world', '02715', '040895')
   end
 
-  def test_it_can_find_offsets
-    cipher = EnigmaCipher.new
+  def test_it_can_decrypt_with_key_and_date
+    @cipher.stubs(:message).returns('keder ohulw')
 
-    expected = {
-      a: 1,
-      b: 0,
-      c: 2,
-      d: 5
-    }
+    expected = 'hello world'
 
-    assert_equal expected, cipher.offsets("040895")
+    assert_equal expected, @cipher.decrypt('keder ohulw', '02715', '040895')
   end
 
   def test_it_can_find_shifts
-    cipher = EnigmaCipher.new
-
     expected = {
       a: 3,
       b: 27,
@@ -57,32 +39,50 @@ class EnigmaCipherTest < Minitest::Test
       d: 20
     }
 
-    assert_equal expected, cipher.shifts("02715", "040895")
+    assert_equal expected, @cipher.shifts
   end
 
-  def test_it_can_encrypt_with_key_and_date
-    cipher = EnigmaCipher.new
+  def test_it_can_find_keys
+    expected = {
+      a: 2,
+      b: 27,
+      c: 71,
+      d: 15
+    }
 
-    expected = "keder ohulw"
-
-    assert_equal expected, cipher.encrypt("hello world", "02715", "040895")
+    assert_equal expected, @cipher.keys
   end
 
-  def test_it_can_decrypt_with_key_and_date
-    cipher = EnigmaCipher.new
+  # From module
 
-    expected = "hello world"
+  def test_it_can_find_offsets
+    expected = {
+      a: 1,
+      b: 0,
+      c: 2,
+      d: 5
+    }
 
-    assert_equal expected, cipher.decrypt("keder ohulw", "02715", "040895")
+    assert_equal expected, @cipher.offsets
   end
 
-  def test_it_can_crypt
-    cipher = EnigmaCipher.new
+  # From inheritance
+
+  def test_it_has_a_character_set
+    expected = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+      'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+      's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '
+    ]
+
+    assert_equal expected, @cipher.char_set
+  end
+
+  def test_it_can_translate
     shifts = [3, 27, 73, 20]
 
-    expected = "keder ohulw"
+    expected = 'keder ohulw'
 
-    assert_equal expected, cipher.vigenere_translate("hello world", shifts)
+    assert_equal expected, @cipher.vigenere_translate('hello world', shifts)
   end
-
 end
