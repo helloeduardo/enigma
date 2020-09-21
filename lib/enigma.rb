@@ -23,7 +23,7 @@ class Enigma
   end
 
   def crack(ciphertext, date = default_date)
-    { decryption: bombe.decrypt(ciphertext),
+    { decryption: bombe.crack(ciphertext),
       date: date,
       key: bombe.key(ciphertext, date) }
   end

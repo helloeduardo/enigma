@@ -66,7 +66,7 @@ class EnigmaBombe < RotationalCipher
     end
   end
 
-  def decrypt(ciphertext)
+  def crack(ciphertext)
     shifts = shifts(ciphertext).values.map(&:-@)
     vigenere_translate(ciphertext, shifts)
   end
