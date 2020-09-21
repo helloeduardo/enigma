@@ -4,6 +4,9 @@ require './lib/enigma_cipher'
 class EnigmaCipherTest < Minitest::Test
   def setup
     @cipher = EnigmaCipher.new
+    @cipher.stubs(:message).returns('hello world')
+    @cipher.stubs(:date).returns('040895')
+    @cipher.stubs(:key).returns('02715')
   end
 
   def test_it_exists
@@ -28,7 +31,7 @@ class EnigmaCipherTest < Minitest::Test
       d: 15
     }
 
-    assert_equal expected, @cipher.keys('02715')
+    assert_equal expected, @cipher.keys
   end
 
   def test_it_can_find_offsets
@@ -39,7 +42,7 @@ class EnigmaCipherTest < Minitest::Test
       d: 5
     }
 
-    assert_equal expected, @cipher.offsets('040895')
+    assert_equal expected, @cipher.offsets
   end
 
   def test_it_can_find_shifts
@@ -50,7 +53,7 @@ class EnigmaCipherTest < Minitest::Test
       d: 20
     }
 
-    assert_equal expected, @cipher.shifts('02715', '040895')
+    assert_equal expected, @cipher.shifts
   end
 
   def test_it_can_encrypt_with_key_and_date
@@ -60,6 +63,8 @@ class EnigmaCipherTest < Minitest::Test
   end
 
   def test_it_can_decrypt_with_key_and_date
+    @cipher.stubs(:message).returns('keder ohulw')
+
     expected = 'hello world'
 
     assert_equal expected, @cipher.decrypt('keder ohulw', '02715', '040895')

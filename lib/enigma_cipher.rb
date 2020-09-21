@@ -4,24 +4,40 @@ require './lib/offsetable'
 # This class implements primary enigma cipher for encrytion and decryption
 class EnigmaCipher < RotationalCipher
   include Offsetable
+  attr_reader :message, :date, :key
 
+  def initialize
+    @message = ''
+    @date = ''
+    @key = ''
+    super
+  end
+
+  # Interface methods for encrypt and decrypt
   def encrypt(message, key, date)
-    shifts = shifts(key, date).values
-    vigenere_translate(message, shifts)
+    @message = message
+    @key = key
+    @date = date
+
+    vigenere_translate(message, shifts.values)
   end
 
   def decrypt(message, key, date)
-    shifts = shifts(key, date).values.map(&:-@)
-    vigenere_translate(message, shifts)
+    @message = message
+    @key = key
+    @date = date
+
+    vigenere_translate(message, shifts.values.map(&:-@))
   end
 
-  def shifts(key, date)
-    keys(key).merge(offsets(date)) do |_shift, subkey, offset|
+  # Helper methods for determining shifts
+  def shifts
+    keys.merge(offsets) do |_shift, subkey, offset|
       subkey + offset
     end
   end
 
-  def keys(key)
+  def keys
     { a: key[0..1].to_i,
       b: key[1..2].to_i,
       c: key[2..3].to_i,
