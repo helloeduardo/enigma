@@ -1,7 +1,7 @@
 require './lib/rotational_cipher'
 
+# This class implements primary enigma cipher for encrytion and decryption
 class EnigmaCipher < RotationalCipher
-
   def keys(key)
     { a: key[0..1].to_i,
       b: key[1..2].to_i,
@@ -18,8 +18,8 @@ class EnigmaCipher < RotationalCipher
   end
 
   def shifts(key, date)
-    keys(key).merge(offsets(date)) do |shift, key, offset|
-      key + offset
+    keys(key).merge(offsets(date)) do |_shift, subkey, offset|
+      subkey + offset
     end
   end
 
@@ -29,8 +29,7 @@ class EnigmaCipher < RotationalCipher
   end
 
   def decrypt(message, key, date)
-    shifts = shifts(key, date).values.map { |n| -n }
+    shifts = shifts(key, date).values.map(&:-@)
     vigenere_translate(message, shifts)
   end
-
 end

@@ -1,22 +1,23 @@
 require './lib/rotational_cipher'
 require './lib/formatable'
 
+# This class cracks the enigma cipher
 class EnigmaBombe < RotationalCipher
   include Formatable
   attr_reader :known_ending
 
   def initialize
-    @known_ending = " end"
+    @known_ending = ' end'
     super
   end
 
   def key(ciphertext, date)
-    key = possible_keys(ciphertext, date).find do |key|
+    keys = possible_keys(ciphertext, date).find do |key|
       key[0][1] == key[1][0] &&
-      key[1][1] == key[2][0] &&
-      key[2][1] == key[3][0]
+        key[1][1] == key[2][0] &&
+        key[2][1] == key[3][0]
     end
-    format_key(key)
+    format_key(keys)
   end
 
   def possible_keys(message, date)
@@ -33,13 +34,13 @@ class EnigmaBombe < RotationalCipher
 
   def shift_multiples(shift)
     multiples = (0..99).to_a.find_all do |number|
-      (number - shift) % char_set.size == 0
+      ((number - shift) % char_set.size).zero?
     end
     format_multiples(multiples)
   end
 
   def cracked_keys(message, date)
-    shifts(message).merge(offsets(date)) do |letter, shift, offset|
+    shifts(message).merge(offsets(date)) do |_letter, shift, offset|
       shift - offset
     end
   end
@@ -57,7 +58,7 @@ class EnigmaBombe < RotationalCipher
   end
 
   def shift_sequence(message)
-    message.each_char.with_index.map do |char, index|
+    message.each_char.with_index.map do |_char, index|
       char_set[index % 4].to_sym
     end
   end
@@ -73,8 +74,7 @@ class EnigmaBombe < RotationalCipher
   end
 
   def decrypt(ciphertext)
-    shifts = shifts(ciphertext).values.map { |n| -n }
+    shifts = shifts(ciphertext).values.map(&:-@)
     vigenere_translate(ciphertext, shifts)
   end
-
 end

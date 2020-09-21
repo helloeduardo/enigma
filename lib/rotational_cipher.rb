@@ -1,3 +1,4 @@
+# This superclass implements general rotational cipher methods
 class RotationalCipher
   attr_reader :char_set
 
@@ -17,11 +18,7 @@ class RotationalCipher
     dictionary = char_set.zip(char_set.rotate(shift)).to_h
 
     message.downcase.chars.map do |char|
-      if dictionary[char]
-        dictionary[char]
-      else
-        char
-      end
+      dictionary[char] || char
     end.join
   end
 end
