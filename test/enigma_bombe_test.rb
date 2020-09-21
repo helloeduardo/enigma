@@ -26,6 +26,11 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal ' end', @bombe.known_ending
   end
 
+  def test_it_has_a_ciphertext_and_date
+    assert_equal 'vjqtbeaweqihssi', @bombe.ciphertext
+    assert_equal '291018', @bombe.date
+  end
+
   def test_it_can_crack
     expected = 'hello world end'
 
