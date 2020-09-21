@@ -1,9 +1,11 @@
 require './lib/rotational_cipher'
 require './lib/formatable'
+require './lib/offsetable'
 
 # This class cracks the enigma cipher
 class EnigmaBombe < RotationalCipher
   include Formatable
+  include Offsetable
   attr_reader :known_ending
 
   def initialize
@@ -43,14 +45,6 @@ class EnigmaBombe < RotationalCipher
     shifts(message).merge(offsets(date)) do |_letter, shift, offset|
       shift - offset
     end
-  end
-
-  def offsets(date)
-    offsets = (date.to_i**2).digits.first(4)
-    { a: offsets[3],
-      b: offsets[2],
-      c: offsets[1],
-      d: offsets[0] }
   end
 
   def shifts(message)

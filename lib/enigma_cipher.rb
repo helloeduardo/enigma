@@ -1,20 +1,15 @@
 require './lib/rotational_cipher'
+require './lib/offsetable'
 
 # This class implements primary enigma cipher for encrytion and decryption
 class EnigmaCipher < RotationalCipher
+  include Offsetable
+
   def keys(key)
     { a: key[0..1].to_i,
       b: key[1..2].to_i,
       c: key[2..3].to_i,
       d: key[3..4].to_i }
-  end
-
-  def offsets(date)
-    offsets = (date.to_i**2).digits.first(4)
-    { a: offsets[3],
-      b: offsets[2],
-      c: offsets[1],
-      d: offsets[0] }
   end
 
   def shifts(key, date)
