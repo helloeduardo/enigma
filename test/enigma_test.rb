@@ -11,6 +11,7 @@ class EnigmaTest < Minitest::Test
   def test_it_exists_and_has_attributes
     assert_instance_of Enigma, @enigma
     assert_instance_of EnigmaCipher, @enigma.cipher
+    assert_instance_of EnigmaBombe, @enigma.bombe
   end
 
   def test_it_can_encrypt_with_key_and_date
