@@ -23,13 +23,11 @@ class EnigmaBombe < RotationalCipher
   # Interface methods for crack and key
   def crack(ciphertext)
     set_bombe(ciphertext)
-
     vigenere_translate(ciphertext, base_shifts.values.map(&:-@))
   end
 
   def key(ciphertext, date)
     set_bombe(ciphertext, date)
-
     find_key
   end
 
