@@ -23,7 +23,7 @@
 
 ## How To Run
 
-You may `fork` and/or `clone` this repository locally, or [![Run on Repl.it](https://repl.it/badge/github/helloeduardo/build_a_person)](https://repl.it/github/helloeduardo/build_a_person)
+You may `fork` and/or `clone` this repository locally, or [![Run on Repl.it](https://repl.it/badge/github/helloeduardo/enigma)](https://repl.it/github/helloeduardo/enigma)
 
 ### Encryption
 
