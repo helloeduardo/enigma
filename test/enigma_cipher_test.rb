@@ -4,9 +4,7 @@ require './lib/enigma_cipher'
 class EnigmaCipherTest < Minitest::Test
   def setup
     @cipher = EnigmaCipher.new
-    @cipher.stubs(:message).returns('hello world')
-    @cipher.stubs(:date).returns('040895')
-    @cipher.stubs(:key).returns('02715')
+    @cipher.set_cipher('hello world', '02715', '040895')
   end
 
   def test_it_exists
@@ -21,6 +19,13 @@ class EnigmaCipherTest < Minitest::Test
     ]
 
     assert_equal expected, @cipher.char_set
+  end
+
+  def test_it_can_set_cipher
+    @cipher.set_cipher('hello world', '02715', '040895')
+    assert_equal 'hello world', @cipher.message
+    assert_equal '02715', @cipher.key
+    assert_equal '040895', @cipher.date
   end
 
   def test_it_can_find_keys

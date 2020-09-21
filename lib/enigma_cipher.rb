@@ -13,19 +13,21 @@ class EnigmaCipher < RotationalCipher
     super
   end
 
-  # Interface methods for encrypt and decrypt
-  def encrypt(message, key, date)
+  def set_cipher(message, key, date)
     @message = message
     @key = key
     @date = date
+  end
+
+  # Interface methods for encrypt and decrypt
+  def encrypt(message, key, date)
+    set_cipher(message, key, date)
 
     vigenere_translate(message, shifts.values)
   end
 
   def decrypt(message, key, date)
-    @message = message
-    @key = key
-    @date = date
+    set_cipher(message, key, date)
 
     vigenere_translate(message, shifts.values.map(&:-@))
   end
