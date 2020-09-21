@@ -1,5 +1,5 @@
 module Offsetable
-  def offsets(date)
+  def offsets
     offsets = (date.to_i**2).digits.first(4)
     { a: offsets[3],
       b: offsets[2],

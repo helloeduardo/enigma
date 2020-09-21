@@ -66,7 +66,7 @@ class EnigmaBombeTest < Minitest::Test
       d: 4
     }
 
-    assert_equal expected, @bombe.offsets('291018')
+    assert_equal expected, @bombe.offsets
   end
 
   def test_it_can_find_base_keys

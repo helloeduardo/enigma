@@ -76,7 +76,7 @@ class EnigmaBombe < RotationalCipher
   end
 
   def base_keys
-    base_shifts.merge(offsets(date)) do |_letter, shift, offset|
+    base_shifts.merge(offsets) do |_letter, shift, offset|
       shift - offset
     end
   end
