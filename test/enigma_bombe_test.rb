@@ -11,31 +11,31 @@ class EnigmaBombeTest < Minitest::Test
     assert_instance_of EnigmaBombe, @bombe
   end
 
-  def test_it_has_a_character_set
-    expected = [
-      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-      'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-      's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '
-    ]
-
-    assert_equal expected, @bombe.char_set
-  end
-
   def test_it_has_a_known_ending
     assert_equal ' end', @bombe.known_ending
   end
 
   def test_it_has_a_ciphertext_and_date
-    @bombe.set_bombe('vjqtbeaweqihssi', '291018')
-
     assert_equal 'vjqtbeaweqihssi', @bombe.ciphertext
     assert_equal '291018', @bombe.date
   end
 
   def test_it_can_crack
-    expected = 'hello world end'
+    assert_equal 'hello world end', @bombe.crack('vjqtbeaweqihssi')
+  end
 
-    assert_equal expected, @bombe.crack('vjqtbeaweqihssi')
+  def test_it_has_key
+    assert_equal '08304', @bombe.key('vjqtbeaweqihssi', '291018')
+  end
+
+  def test_it_can_find_base_shifts
+    expected = {
+      a: 14,
+      b: 5,
+      c: 5,
+      d: -19
+    }
+    assert_equal expected, @bombe.base_shifts
   end
 
   def test_it_can_find_shift_sequence
@@ -49,48 +49,8 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.message_shifts
   end
 
-  def test_it_can_find_shifts
-    expected = {
-      a: 14,
-      b: 5,
-      c: 5,
-      d: -19
-    }
-    assert_equal expected, @bombe.base_shifts
-  end
-
-  def test_it_can_find_offsets
-    expected = {
-      a: 6,
-      b: 3,
-      c: 2,
-      d: 4
-    }
-
-    assert_equal expected, @bombe.offsets
-  end
-
-  def test_it_can_find_base_keys
-    expected = {
-      a: 8,
-      b: 2,
-      c: 3,
-      d: -23
-    }
-
-    assert_equal expected, @bombe.base_keys
-  end
-
-  def test_it_has_key
-    assert_equal '08304', @bombe.key('vjqtbeaweqihssi', '291018')
-  end
-
   def test_it_can_find_key
     assert_equal '08304', @bombe.find_key
-  end
-
-  def test_it_can_format_key
-    assert_equal '08304', @bombe.format_key(['08', '83', '30', '04'])
   end
 
   def test_it_can_have_possible_keys
@@ -112,8 +72,47 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal ['08', '35', '62', '89'], @bombe.shift_multiples(8)
   end
 
+  def test_it_can_find_base_keys
+    expected = {
+      a: 8,
+      b: 2,
+      c: 3,
+      d: -23
+    }
+
+    assert_equal expected, @bombe.base_keys
+  end
+
+  # From modules
+
+  def test_it_can_format_key
+    assert_equal '08304', @bombe.format_key(['08', '83', '30', '04'])
+  end
+
   def test_it_can_format_multiples
     assert_equal ['08', '35', '62', '89'], @bombe.format_multiples([8, 35, 62, 89])
   end
 
+  def test_it_can_find_offsets
+    expected = {
+      a: 6,
+      b: 3,
+      c: 2,
+      d: 4
+    }
+
+    assert_equal expected, @bombe.offsets
+  end
+
+  # From inheritance
+
+  def test_it_has_a_character_set
+    expected = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+      'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+      's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '
+    ]
+
+    assert_equal expected, @bombe.char_set
+  end
 end
