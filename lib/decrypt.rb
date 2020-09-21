@@ -1,5 +1,6 @@
 require './lib/enigma'
 require './lib/enigma_cipher'
+require './lib/enigma_bombe'
 
 message = File.read(ARGV[0])
 
