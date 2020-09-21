@@ -28,9 +28,8 @@ class EnigmaBombe < RotationalCipher
   end
 
   def possible_shifts(message, date)
-    cracked_keys(message, date).reduce({}) do |possibilities, (letter, shift)|
+    cracked_keys(message, date).each_with_object({}) do |(letter, shift), possibilities|
       possibilities[letter] = shift_multiples(shift)
-      possibilities
     end
   end
 
