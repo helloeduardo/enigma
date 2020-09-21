@@ -4,8 +4,7 @@ require './lib/enigma_bombe'
 class EnigmaBombeTest < Minitest::Test
   def setup
     @bombe = EnigmaBombe.new
-    @bombe.stubs(:ciphertext).returns('vjqtbeaweqihssi')
-    @bombe.stubs(:date).returns('291018')
+    @bombe.set_bombe('vjqtbeaweqihssi', '291018')
   end
 
   def test_it_exists
@@ -27,6 +26,8 @@ class EnigmaBombeTest < Minitest::Test
   end
 
   def test_it_has_a_ciphertext_and_date
+    @bombe.set_bombe('vjqtbeaweqihssi', '291018')
+
     assert_equal 'vjqtbeaweqihssi', @bombe.ciphertext
     assert_equal '291018', @bombe.date
   end
@@ -80,8 +81,12 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.base_keys
   end
 
-  def test_it_can_find_key
+  def test_it_has_key
     assert_equal '08304', @bombe.key('vjqtbeaweqihssi', '291018')
+  end
+
+  def test_it_can_find_key
+    assert_equal '08304', @bombe.find_key
   end
 
   def test_it_can_format_key

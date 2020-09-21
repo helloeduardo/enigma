@@ -15,24 +15,22 @@ class EnigmaBombe < RotationalCipher
     super
   end
 
+  def set_bombe(ciphertext, date = '')
+    @ciphertext = ciphertext
+    @date = date
+  end
+
   # Interface methods for crack and key
   def crack(ciphertext)
-    @ciphertext = ciphertext
+    set_bombe(ciphertext)
 
-    shifts = base_shifts.values.map(&:-@)
-    vigenere_translate(@ciphertext, shifts)
+    vigenere_translate(@ciphertext, base_shifts.values.map(&:-@))
   end
 
   def key(ciphertext, date)
-    @ciphertext = ciphertext
-    @date = date
+    set_bombe(ciphertext, date)
 
-    keys = possible_keys.find do |key|
-      key[0][1] == key[1][0] &&
-        key[1][1] == key[2][0] &&
-        key[2][1] == key[3][0]
-    end
-    format_key(keys)
+    find_key
   end
 
   # Helper methods to crack message
@@ -57,6 +55,15 @@ class EnigmaBombe < RotationalCipher
   end
 
   # Helper methods to crack key
+  def find_key
+    keys = possible_keys.find do |key|
+      key[0][1] == key[1][0] &&
+        key[1][1] == key[2][0] &&
+        key[2][1] == key[3][0]
+    end
+    format_key(keys)
+  end
+
   def possible_keys
     shifts = possible_shifts
     shifts[:a].product(shifts[:b], shifts[:c], shifts[:d])
