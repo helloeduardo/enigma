@@ -62,7 +62,7 @@ class EnigmaBombeTest < Minitest::Test
     assert_equal expected, @bombe.offsets('291018')
   end
 
-  def test_it_can_find_crack_keys
+  def test_it_can_find_base_keys
     expected = {
       a: 8,
       b: 2,
@@ -70,7 +70,7 @@ class EnigmaBombeTest < Minitest::Test
       d: -23
     }
 
-    assert_equal expected, @bombe.cracked_keys('vjqtbeaweqihssi', '291018')
+    assert_equal expected, @bombe.base_keys('vjqtbeaweqihssi', '291018')
   end
 
   def test_it_can_find_key

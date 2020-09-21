@@ -28,7 +28,7 @@ class EnigmaBombe < RotationalCipher
   end
 
   def possible_shifts(message, date)
-    cracked_keys(message, date).each_with_object({}) do |(letter, shift), possibilities|
+    base_keys(message, date).each_with_object({}) do |(letter, shift), possibilities|
       possibilities[letter] = shift_multiples(shift)
     end
   end
@@ -40,7 +40,7 @@ class EnigmaBombe < RotationalCipher
     format_multiples(multiples)
   end
 
-  def cracked_keys(message, date)
+  def base_keys(message, date)
     shifts(message).merge(offsets(date)) do |_letter, shift, offset|
       shift - offset
     end
