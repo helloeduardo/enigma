@@ -24,7 +24,7 @@ class EnigmaBombe < RotationalCipher
   def crack(ciphertext)
     set_bombe(ciphertext)
 
-    vigenere_translate(@ciphertext, base_shifts.values.map(&:-@))
+    vigenere_translate(ciphertext, base_shifts.values.map(&:-@))
   end
 
   def key(ciphertext, date)
